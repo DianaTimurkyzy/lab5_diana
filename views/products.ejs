@@ -6,24 +6,23 @@
   <body>
     <main>
       <%- include('partials/navigation', { menuLinks: menuLinks, activeLinkPath:
-      activeLinkPath }); %>
+      activeLinkPath, cartCount: cartCount }); %>
       <h1 class="heading">Products</h1>
       <% if (products?.length > 0) { %>
       <ul>
         <% products.forEach(product => { %>
-        <li>
-          Name: <%= product.name %>, Description: <%= product.description %>
-          <a href="/products/<%= product.name %>">Details</a>
-          <button onclick="deleteProduct('<%= product.name %>')">Delete</button>
-        </li>
+          <li>
+            <%- include('partials/card', { product: product }); %>
+          </li>
         <% }); %>
       </ul>
       <% } else { %>
       <br />
       <div>No products available.</div>
       <% }%>
+      <br />
+      <a href="/products/add">Add Product</a>
     </main>
-  </body>
   <script>
     function deleteProduct(name) {
       if (!confirm(`Are you sure you want to remove ${name}?`)) {
@@ -42,4 +41,5 @@
       });
     }
   </script>
+  </body>
 </html>

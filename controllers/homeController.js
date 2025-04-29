@@ -1,10 +1,18 @@
+const Product = require("../models/Product");
+const Cart = require("../models/Cart");
 const { MENU_LINKS } = require("../constants/navigation");
 
-exports.getHomeView = (request, response) => {
-  response.render("home.ejs", {
+const getHomeView = (req, res) => {
+  const products = Product.getAll();
+  const cartCount = Cart.getProductsQuantity();
+  res.render("home", {
     headTitle: "Shop - Home",
     path: "/",
-    activeLinkPath: "/",
     menuLinks: MENU_LINKS,
+    activeLinkPath: "/",
+    products,
+    cartCount,
   });
 };
+
+module.exports = { getHomeView };
